@@ -19,17 +19,18 @@ defineProps({
 
     <Head title="Social Media Website" />
 
-    <div class="grid grid-cols-12 gap-3 p-4 h-full">
-        <div class="col-span-3 py-6">
+    <div class="grid lg:grid-cols-12 gap-3 p-4 h-full">
+        <div class="lg:col-span-3 lg:order-1 h-full overflow-hidden">
             <GroupList />
         </div>
-        <div class="col-span-6 py-6">
-            <CreatePost />
-            <PostList />
-        </div>
-        <div class="col-span-3 py-6">
+        <div class="lg:col-span-3 lg:order-3 h-full overflow-hidden">
             <FollowingList />
         </div>
+        <div class="lg:col-span-6 lg:order-2 h-full overflow-hidden flex flex-col">
+            <CreatePost />
+            <PostList class="flex-1" />
+        </div>
+
 
     </div>
 

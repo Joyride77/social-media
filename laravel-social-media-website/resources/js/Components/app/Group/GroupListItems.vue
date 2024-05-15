@@ -1,42 +1,90 @@
 <script setup>
 import TextInput from "@/Components/TextInput.vue";
 import GroupItem from "@/Components/app/Group/GroupItem.vue";
-import {ref} from "vue";
-import GroupModal from "@/Components/app/Group/GroupModal.vue";
+import { ref } from "vue";
 
 const searchKeyword = ref('')
-const showNewGroupModal = ref(false)
-
-const props = defineProps({
-    groups: Array
-})
-
-function onGroupCreate(group) {
-    props.groups.unshift(group)
-}
 
 </script>
 
 <template>
-    <div class="flex gap-2  mt-4">
-        <TextInput :model-value="searchKeyword" placeholder="Type to search" class="w-full"/>
-        <button @click="showNewGroupModal = true"
-                class="text-sm bg-indigo-500 hover:bg-indigo-600 text-white rounded py-1 px-2 w-[120px]">
-            new group
-        </button>
-    </div>
+    <TextInput :model-value="searchKeyword" placeholder="Type to search" class="w-full mt-4" />
     <div class="mt-3 h-[200px] lg:flex-1 overflow-auto">
         <div v-if="false" class="text-gray-400 text-center p-3">
-            You are not joined to any groups
+            <p>You are not joined to any group</p>
         </div>
         <div v-else>
-            <GroupItem v-for="group of groups" :group="group"/>
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Laravel Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
+            <GroupItem image="https://picsum.photos/100" title="Vue Dev"
+                description="Lorem ipsum dolor sit amet, elit." />
         </div>
-    </div>
 
-    <GroupModal v-model="showNewGroupModal" @create="onGroupCreate"/>
+    </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
