@@ -22,6 +22,7 @@ class ProfileController extends Controller
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
             'user' => new UserResource($user),
+            'success' => session('success'),
         ]);
     }
 
@@ -39,7 +40,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return to_route('profile', $request->user())->with('success', 'Your profile details were updated.');
     }
 
     /**

@@ -251,13 +251,6 @@ function submitAvatarImage() {
             <div class="border-t">
                 <TabGroup>
                     <TabList class="flex bg-white">
-                        <Tab
-                            v-if="isMyProfile"
-                            v-slot="{ selected }"
-                            as="template"
-                        >
-                            <TabItem text="About" :selected="selected" />
-                        </Tab>
                         <Tab v-slot="{ selected }" as="template">
                             <TabItem text="Posts" :selected="selected" />
                         </Tab>
@@ -270,20 +263,14 @@ function submitAvatarImage() {
                         <Tab v-slot="{ selected }" as="template">
                             <TabItem text="Photos" :selected="selected" />
                         </Tab>
-                    </TabList>
-
-                    <TabPanels class="mt-2">
-                        <TabPanel
+                        <Tab
                             v-if="isMyProfile"
-                            :key="about"
-                            class="rounded-xl shadow"
+                            v-slot="{ selected }"
+                            as="template"
                         >
-                            <Edit
-                                :must-verify-email="mustVerifyEmail"
-                                :status="status"
-                            />
-                        </TabPanel>
-                    </TabPanels>
+                            <TabItem text="My Profile" :selected="selected" />
+                        </Tab>
+                    </TabList>
 
                     <TabPanels class="mt-2">
                         <TabPanel
@@ -318,6 +305,19 @@ function submitAvatarImage() {
                             class="rounded-xl bg-white p-3 shadow"
                         >
                             Photos
+                        </TabPanel>
+                    </TabPanels>
+
+                    <TabPanels class="mt-2">
+                        <TabPanel
+                            v-if="isMyProfile"
+                            :key="about"
+                            class="rounded-xl shadow"
+                        >
+                            <Edit
+                                :must-verify-email="mustVerifyEmail"
+                                :status="status"
+                            />
                         </TabPanel>
                     </TabPanels>
                 </TabGroup>
