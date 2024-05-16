@@ -1,9 +1,19 @@
 <script setup>
+import { ref } from "vue";
 import PostItem from "./PostItem.vue";
+import PostModal from "./PostModal.vue";
 
 defineProps({
     posts: Array,
 });
+
+const showEditModal = ref(false);
+const editPost = ref({});
+
+function openEditModal(post) {
+    editPost.value = post;
+    showEditModal.value = true;
+}
 
 const post1 = {
     user: {
@@ -39,28 +49,17 @@ const post1 = {
     `,
     created_at: "2024-11-19 15:12",
 };
-
-const post2 = {
-    user: {
-        id: 2,
-        avatar: "https://picsum.photos/100",
-        name: "Jason Max",
-    },
-    group: {
-        id: 1,
-        name: "Laravel Developer",
-    },
-    body: `
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-    `,
-    created_at: "2024-11-19 05:12",
-};
 </script>
 
 <template>
     <div class="overflow-auto">
-        <PostItem v-for="post of posts" :key="post.id" :post="post" />
+        <PostItem
+            v-for="post of posts"
+            :key="post.id"
+            :post="post"
+            @editClick="openEditModal"
+        />
+
+        <PostModal :post="editPost" v-model="showEditModal" />
     </div>
 </template>

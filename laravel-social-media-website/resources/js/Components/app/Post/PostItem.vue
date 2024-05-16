@@ -1,41 +1,143 @@
 <script setup>
+import {
+    ChatBubbleLeftRightIcon,
+    HandThumbUpIcon,
+} from "@heroicons/vue/24/outline";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-import { ChevronUpIcon } from "@heroicons/vue/20/solid";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import {
+    ChevronDownIcon,
+    PencilIcon,
+    TrashIcon,
+    EllipsisVerticalIcon,
+} from "@heroicons/vue/20/solid";
+import EditDeleteDropdown from "@/Components/app/EditDeleteDropdown.vue";
+import { router, useForm, usePage } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
 
-defineProps({
+const props = defineProps({
     post: Object,
 });
+
+const emit = defineEmits(["editClick"]);
+
+const authUser = usePage().props.auth.user;
 
 function isImage(attachment) {
     const mime = attachment.mime.split("/");
     return mime[0].toLowerCase() === "image";
 }
+
+function openEditModal() {
+    emit("editClick", props.post);
+}
 </script>
 
 <template>
     <div class="bg-white border rounded p-4 mb-3">
-        <div class="flex items-center gap-2">
-            <a href="javascript:void(0)">
-                <img
-                    :src="post.user.avatar_url"
-                    class="w-[40px] rounded-full border-2 transition-all hover:border-blue-500"
-                />
-            </a>
-            <div>
-                <h4 class="bold">
-                    <a href="javascript:void(0)" class="hover:underline">{{
-                        post.user.name
-                    }}</a>
-                    <template v-if="post.group">
-                        >
-                        <a href="javascript:void()" class="hover:underline">{{
-                            post.group.name
+        <!--Post Header-->
+        <div class="flex items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+                <a href="javascript:void(0)">
+                    <img
+                        :src="post.user.avatar_url"
+                        class="w-[40px] rounded-full border-2 transition-all hover:border-blue-500"
+                    />
+                </a>
+                <div>
+                    <h4 class="bold">
+                        <a href="javascript:void(0)" class="hover:underline">{{
+                            post.user.name
                         }}</a>
-                    </template>
-                </h4>
-                <small class="text-gray-400">{{ post.created_at }}</small>
+                        <template v-if="post.group">
+                            >
+                            <a
+                                href="javascript:void()"
+                                class="hover:underline"
+                                >{{ post.group.name }}</a
+                            >
+                        </template>
+                    </h4>
+                    <small class="text-gray-400">{{ post.created_at }}</small>
+                </div>
             </div>
+
+            <!-- <EditDeleteDropdown
+                :user="post.user"
+                :post="post"
+                @edit="openEditModal"
+                @delete="deletePost"
+                @pin="pinUnpinPost"
+            /> -->
+
+            <!--Drop down Menu-->
+            <Menu as="div" class="relative inline-block text-left">
+                <div>
+                    <MenuButton
+                        class="w-8 h-8 rounded-full hover:bg-black/10 transition-all flex items-center justify-center"
+                    >
+                        <EllipsisVerticalIcon
+                            class="w-5 h-5"
+                            aria-hidden="true"
+                        />
+                    </MenuButton>
+                </div>
+
+                <transition
+                    enter-active-class="transition duration-100 ease-out"
+                    enter-from-class="transform scale-95 opacity-0"
+                    enter-to-class="transform scale-100 opacity-100"
+                    leave-active-class="transition duration-75 ease-in"
+                    leave-from-class="transform scale-100 opacity-100"
+                    leave-to-class="transform scale-95 opacity-0"
+                >
+                    <MenuItems
+                        class="absolute right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+                    >
+                        <div class="px-1 py-1">
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    @click="openEditModal"
+                                    :class="[
+                                        active
+                                            ? 'bg-indigo-600 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <PencilIcon
+                                        class="mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Edit
+                                </button>
+                            </MenuItem>
+                        </div>
+
+                        <div class="px-1 py-1">
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-indigo-600 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <TrashIcon
+                                        class="mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Delete
+                                </button>
+                            </MenuItem>
+                        </div>
+                    </MenuItems>
+                </transition>
+            </Menu>
         </div>
+
+        <!--Post itself-->
         <div class="mb-3">
             <Disclosure v-slot="{ open }">
                 <div v-if="!open" v-html="post.body.substring(0, 200)" />
@@ -105,6 +207,7 @@ function isImage(attachment) {
             </template>
         </div>
 
+        <!--Like comment Button-->
         <div class="flex text-sm gap-2">
             <button
                 class="text-gray-800 flex gap-1 items-center justify-center bg-gray-100 rounded-lg hover:bg-gray-200 py-2 px-4 flex-1"
